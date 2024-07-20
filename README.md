@@ -10,8 +10,6 @@ UniLink is an alternative to Linktree, designed to help users create, share, and
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
