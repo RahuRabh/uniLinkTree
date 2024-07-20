@@ -34,33 +34,33 @@ Make sure you have the following installed on your local machine:
 
 1. Clone the repository
 
-> git clone https://github.com/RahuRabh/UniLink.git
+- git clone https://github.com/RahuRabh/UniLink.git
 
 2. Navigate to the project directory
 
-> cd UniLink
+- cd UniLink
 
 3. Install dependencies for the backend and frontend
 
->> cd backend
->> npm install
+- cd backend
+- npm install
 
->> cd frontend
->> npm install
+- cd frontend
+- npm install
 
 ### Usage
 
 Start the frontend and backend server
 
->> cd backend
->> node server.js
+- cd backend
+- node server.js
 
->> cd frontend
->> npm start
+- cd frontend
+- npm start
 
 ### Technologies Used
 
-` Frontend: ReactJS, CSS Modules
-` Backend: Node.js, Express
-` Database: MongoDB
-` Others: Axios, Toastify, Vercel (for frontend hosting), Render (for backend hosting)
+- Frontend: ReactJS, CSS Modules
+- Backend: Node.js, Express
+- Database: MongoDB
+- Others: Axios, Toastify, Vercel (for frontend hosting), Render (for backend hosting)
