@@ -1,6 +1,6 @@
 # UniLink
 
-UniLink is an alternative to Linktree, designed to help users create, share, and manage collections of links efficiently. This project allows users to create a personalized page where they can list their important links and share a single URL with others.
+UniLink is a free way to host and show all your social links in one place, designed to help users create, share, and manage collections of links efficiently. This project allows users to create a personalized page where they can list their important links and share a single URL with others.
 
 ## Table of Contents
 
@@ -16,8 +16,6 @@ UniLink is an alternative to Linktree, designed to help users create, share, and
 - User authentication and authorization
 - Create, edit, and delete links
 - Generate and share a personalized URL
-- Responsive design for mobile and desktop
-- Dynamic and funky UI
 - Real-time updates and toast notifications for user interactions
 
 ## Getting Started
@@ -36,35 +34,29 @@ Make sure you have the following installed on your local machine:
 
 1. Clone the repository
 
-```sh
-git clone https://github.com/RahuRabh/UniLink.git
+> git clone https://github.com/RahuRabh/UniLink.git
 
 2. Navigate to the project directory
 
-```sh
-cd UniLink
+> cd UniLink
 
 3. Install dependencies for the backend and frontend
 
-```sh
-cd backend
-npm install
+>> cd backend
+>> npm install
 
-```sh
-cd frontend
-npm install
+>> cd frontend
+>> npm install
 
 ### Usage
 
 Start the frontend and backend server
 
-```sh
-cd backend
-node server.js
+>> cd backend
+>> node server.js
 
-```sh
-cd frontend
-npm start
+>> cd frontend
+>> npm start
 
 ### Technologies Used
 
