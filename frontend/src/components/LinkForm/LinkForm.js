@@ -10,13 +10,17 @@ import { createLink, updateLink } from "../../apis/link";
 
 export default function LinkForm({ link, onClose }) {
   const [links, setLinks] = useState([{ title: "", url: "" }]);
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupLinkUrl, setPopupLinkUrl] = useState("");
 
+  // Pre-fill the form with the link data if editing
   useEffect(() => {
     if (link) {
-      setLinks(link.links); // Pre-fill the form with the link data if editing
+      setLinks(link.links);
     }
   }, [link]);
 
+  //Function to validate
   const validate = () => {
     let isValid = true;
     links.forEach((link, index) => {
@@ -36,10 +40,12 @@ export default function LinkForm({ link, onClose }) {
     return isValid;
   };
 
+  //Function to add Link
   const handleAddLink = () => {
     setLinks([...links, { title: "", url: "" }]);
   };
 
+  //Function to remove Link
   const handleRemoveLink = (index) => {
     const newLinks = links.filter((_, i) => i !== index);
     setLinks(newLinks);
@@ -53,6 +59,8 @@ export default function LinkForm({ link, onClose }) {
       return newLinks;
     });
   };
+
+  //Function to submit the form
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validate()) {
@@ -70,10 +78,13 @@ export default function LinkForm({ link, onClose }) {
           });
         } else {
           // If creating, create a new link
-          await createLink(linkData);
+          const response = await createLink(linkData);
+          const urlLink = response.linkUrl;
           toast.success("Links submitted successfully!", {
             className: styles.customToast,
           });
+          setPopupLinkUrl(urlLink);
+          setPopupVisible(true);
         }
         onClose(); // Close the form after successful submission
       } catch (error) {
@@ -136,6 +147,25 @@ export default function LinkForm({ link, onClose }) {
             </button>
           </div>
         </form>
+
+        {popupVisible && (
+          <div className={styles.popup}>
+            <div className={styles.popupContent}>
+              <h3>Link Created!</h3>
+              <p>
+                Your link:{" "}
+                <a
+                  href={popupLinkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {popupLinkUrl}
+                </a>
+              </p>
+              <button onClick={() => setPopupVisible(false)}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
       <ToastContainer />
     </div>

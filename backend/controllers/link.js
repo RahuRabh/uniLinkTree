@@ -1,6 +1,8 @@
 const Link = require("../models/link");
 
-const { Types: { ObjectId }, } = require("mongoose");
+const {
+  Types: { ObjectId },
+} = require("mongoose");
 
 //To create links
 const createLink = async (req, res) => {
@@ -9,7 +11,7 @@ const createLink = async (req, res) => {
 
     // Ensure links and userId are present
     if (!links || !userId) {
-      return res.status(400).json({ message: 'Links and userId are required' });
+      return res.status(400).json({ message: "Links and userId are required" });
     }
 
     const linkDetails = new Link({
@@ -17,10 +19,14 @@ const createLink = async (req, res) => {
       links,
     });
 
+    //  Generate the public URL
+    const linkUrl = `https://uni-link-tree.vercel.app/links/${userId}`;
+    // const linkUrl = `http://localhost:3001/links/${userId}`
     const response = await linkDetails.save();
     res.json({
       message: "Link Created",
       id: response._id,
+      linkUrl,
     });
   } catch (err) {
     console.log(err);
@@ -35,11 +41,11 @@ const updateLink = async (req, res) => {
 
     // Ensure the links array has at least one item with title and url
     if (!links || !links.length) {
-      return res.status(400).json({ message: 'Links array is required' });
+      return res.status(400).json({ message: "Links array is required" });
     }
 
-    const linkDocument = await Link.findById(linkId );
-    linkDocument.links = links
+    const linkDocument = await Link.findById(linkId);
+    linkDocument.links = links;
 
     // Save the updated document
     const updatedLinkDocument = await linkDocument.save();

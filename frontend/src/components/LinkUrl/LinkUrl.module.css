@@ -1,0 +1,57 @@
+/* LinkUrl.css */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #b0cdff, #9ac2fa);
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+  }
+  
+  .linkcontainer {
+    text-align: center;
+    background: #b5bad8;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .linktitle {
+    font-size: 2em;
+    color: #83de42;
+    margin-bottom: 20px;
+  }
+  
+  .brandname {
+    font-size: 2.5em;
+    color: #ffffff;
+    margin-bottom: 40px;
+    font-weight:bolder;
+  }
+  
+  .linkgroup {
+    margin-bottom: 10px;
+  }
+  
+  .linkitem {
+    margin-bottom: 10px;
+  }
+  
+  .linkurl {
+    text-decoration: none;
+    color: #1017dc;
+    font-size: 1.2em;
+    transition: color 0.3s;
+  }
+  .para{
+    font-size: 24px;
+    font-weight: 800;
+    color: #de4242;
+  }
+  .linkurl:hover {
+    color: #ff6f61;
+  }
+  
