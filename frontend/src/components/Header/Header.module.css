@@ -1,0 +1,32 @@
+/* src/components/Dashboard/Header.module.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #282c34;
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: sticky;
+    top: 0;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .logout {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    background-color: #282c34;
+  } 
+  

@@ -1,0 +1,55 @@
+/* src/components/Dashboard/Dashboard.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .mainContent {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+    padding: 2rem;
+  }
+  
+  .monologueSection {
+    max-width: 40%;
+  }
+  
+  .monologueSection h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .monologueSection p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+  
+  .createLinkBtn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #ff6f61;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .createLinkBtn:hover {
+    background-color: #ff3b2e;
+  }
+  
+  .imageSection img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
