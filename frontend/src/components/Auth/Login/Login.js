@@ -18,7 +18,6 @@ export default function Login() {
       localStorage.setItem("token", response?.token)
       localStorage.setItem("userId", response?.userId)
       localStorage.setItem("name", response?.name)
-      console.log(response);
       if(response.errorMessage){
         setErrorMessage(response.errorMessage)
       }

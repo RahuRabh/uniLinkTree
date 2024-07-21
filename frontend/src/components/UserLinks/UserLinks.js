@@ -31,7 +31,8 @@ export default function UserLinks() {
   useEffect(() => {
     const fetchLinks = async () => {
       try {
-        const data = await getLinks();
+        let userId = localStorage.getItem("userId");
+        const data = await getLinks(userId);
         setLinks(data);
         setLoading(false);
       } catch (error) {
@@ -68,55 +69,6 @@ export default function UserLinks() {
   };
 
   return (
-    //   <div className={styles.container}>
-    //     <Header onCreateLinkClick={handleCreateLinkClick} />
-    //     <div className={styles.contentWrapper}>
-    //     <main className={styles.mainContent}>
-    //       {isFormVisible && <LinkForm onClose={handleCloseForm} />}
-    //       {loading ? (
-    //         <div className={styles.loader}>Loading...</div>
-    //       ) : links.length > 0 ? (
-    //         links.map((linkObj, index) => (
-    //           <div
-    //             key={linkObj._id}
-    //             className={`${styles.linkCard} ${
-    //               index % 2 === 0 ? styles.evenCard : styles.oddCard
-    //             }`}
-    //           >
-    //             {linkObj.links.map((link) => (
-    //               <div key={link._id} className={styles.linkRow}>
-    //                 <span className={styles.linkTitle}>{link.title}</span>
-    //                 <span className={styles.linkUrl}>{link.url}</span>
-    //               </div>
-    //             ))}
-    //             <div className={styles.actionButtons}>
-    //               <img
-    //                 src={edit}
-    //                 alt="Edit"
-    //                 className={styles.editIcon}
-    //                 onClick={() => handleEdit(linkObj)}
-    //               />
-    //               <img
-    //                 src={del}
-    //                 alt="Delete"
-    //                 className={styles.deleteIcon}
-    //                 onClick={() => handleDelete(linkObj._id)}
-    //               />
-    //             </div>
-    //           </div>
-    //         ))
-    //       ) : (
-    //         <div className={styles.noLinksMessage}>No links uploaded yet.</div>
-    //       )}
-    //       {editingLink && (
-    //         <LinkForm link={editingLink} onClose={handleCloseForm} />
-    //       )}
-    //     </main>
-    //     </div>
-    //     <Footer />
-    //     <ToastContainer />
-    //   </div>
-    // );
     <div className={styles.container}>
       <Header onCreateLinkClick={handleCreateLinkClick} />
       <main className={styles.mainContent}>

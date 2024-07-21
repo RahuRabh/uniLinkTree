@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
-const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 export const createLink = async (linkData) => {
   try {
@@ -36,10 +35,6 @@ export const updateLink = async (linkId, linkData) => {
 
 export const getLinks = async (userId) => {
   try {
-    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
-    if (!userId) {
-      throw new Error("User ID not found in localStorage");
-    }
     const reqUrl = `${backendUrl}/links/getLink/${userId}`;
     const response = await axios.get(reqUrl);
     return response.data;
@@ -47,17 +42,3 @@ export const getLinks = async (userId) => {
     console.log(error);
   }
 };
-
-export const getLinkUrl = async() => {
-  try {
-    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
-    if (!userId) {
-      throw new Error("User ID not found in localStorage");
-    }
-    const reqUrl = `${baseUrl}/links/getLink/${userId}`;
-    const response = await axios.get(reqUrl);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
