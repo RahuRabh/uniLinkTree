@@ -15,6 +15,11 @@ const Home = () => {
     setIsFormVisible(false);
   };
 
+  const handleLinkClick = () => {
+    const linkUrl = localStorage.getItem("userLink");
+    window.open(linkUrl, '_blank');
+  }
+
   return (
     <div className={styles.container}>
       <Header onCreateLinkClick={handleCreateLinkClick}/>
@@ -30,9 +35,10 @@ const Home = () => {
             Simplify your online identity and maximize your reach with UniLink.
           </p>
           <button onClick={handleCreateLinkClick} className={styles.createLinkBtn}>Create Link</button>
+          <button onClick={handleLinkClick} className={styles.unilinkBtn}>Your UniLink</button>
         </section>
         <section className={styles.imageSection}>
-          <img src="https://via.placeholder.com/300" alt="3D Funky Illustration" />
+          <img src="https://images.pexels.com/photos/10643964/pexels-photo-10643964.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="3D Funky Illustration" />
         </section>
       </main>
       <Footer />

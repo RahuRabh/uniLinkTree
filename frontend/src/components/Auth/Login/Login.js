@@ -18,6 +18,7 @@ export default function Login() {
       localStorage.setItem("token", response?.token)
       localStorage.setItem("userId", response?.userId)
       localStorage.setItem("name", response?.name)
+      localStorage.setItem('userLink', response?.linkUrl)
       if(response.errorMessage){
         setErrorMessage(response.errorMessage)
       }

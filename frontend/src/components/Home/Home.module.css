@@ -32,9 +32,20 @@
   
   .createLinkBtn {
     padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: white;
     background-color: #ff6f61;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  .unilinkBtn{
+    padding: 0.75rem 1.5rem;
+    font-size: 1.3rem;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -46,10 +57,13 @@
   .createLinkBtn:hover {
     background-color: #ff3b2e;
   }
-  
+  .unilinkBtn:hover{
+    background-color: #233bf3;
+  }
   .imageSection img {
-    max-width: 100%;
-    height: auto;
+    width: 30vw;
+    height: 50vh;
     border-radius: 10px;
+    box-shadow: 10px 10px 30px 50px rgba(249, 138, 162, 0.665);
   }
   

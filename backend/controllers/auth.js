@@ -44,6 +44,8 @@ const loginUser = async (req, res) => {
     if (!passwordMatch) {
       return res.json({ errorMessage: "Invalid password" });
     }
+    const linkUrl = `https://uni-link-tree.vercel.app/links/${userDetails._id}`;
+    // const linkUrl = `http://localhost:3001/links/${userDetails._id}`
     const token = jwt.sign({ userId: userDetails._id }, process.env.SECRET_KEY);
     res.cookie("token", token, { httpOnly: true });
     res.json({
@@ -51,6 +53,7 @@ const loginUser = async (req, res) => {
       token: token,
       userId: userDetails._id,
       name: userDetails.name,
+      linkUrl
     });
   } catch (error) {
     console.log(error);
