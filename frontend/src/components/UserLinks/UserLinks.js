@@ -25,6 +25,7 @@ export default function UserLinks() {
 
   const handleCreateLinkClick = () => {
     setIsFormVisible(true);
+    setEditingLink(null);
   };
 
   // To Fetch Link Data
@@ -45,6 +46,7 @@ export default function UserLinks() {
   //Function to edit
   const handleEdit = (link) => {
     setEditingLink(link);
+    setIsFormVisible(true); 
   };
 
   //Function to delete
