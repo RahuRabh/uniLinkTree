@@ -1,9 +1,19 @@
-.contentContainer {
-  padding: 20px;
-  min-height: calc(100vh - 160px); /* Adjust based on header and footer height */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ecdddd;
+}
+
+.mainContent {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem;
+  width: 100%; /* Ensure the main content takes the full width */
+  box-sizing: border-box;
 }
 
 .loader {
@@ -16,16 +26,16 @@
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 10px;
-  position: relative;
-  width: 80%; /* Adjust as needed */
+  width: 100%;
+  max-width: 800px;
 }
 
 .evenCard {
-  background-color: #f0f8ff; /* AliceBlue */
+  background-color: #c2dbf3;
 }
 
 .oddCard {
-  background-color: #e6e6fa; /* Lavender */
+  background-color: #b2b2f3;
 }
 
 .linkRow {
@@ -39,7 +49,7 @@
 }
 
 .linkUrl {
-  color: #555;
+  color: black;
 }
 
 .actionButtons {

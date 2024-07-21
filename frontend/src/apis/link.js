@@ -2,10 +2,12 @@ import axios from "axios";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
 export const createLink = async (linkData) => {
   try {
     const reqUrl = `${backendUrl}/links/createLink`;
     const response = await axios.post(reqUrl, linkData);
+    localStorage.setItem("uniLink", response.data.linkUrl);
     return response.data;
   } catch (error) {
     console.log(error);

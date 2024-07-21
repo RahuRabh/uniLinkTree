@@ -4,13 +4,14 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import HomePage from "./pages/HomePage/HomePage"
 import UserLinks from "./components/UserLinks/UserLinks"
 import LinkUrl from "./components/LinkUrl/LinkUrl";
+import ProtectRoutes from "./components/ProtectedRoutes"
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AuthPage />} />
-        <Route path="/home" element={<HomePage />}/>
-        <Route path="/userlinks" element={<UserLinks />}/>
+        <Route path="/home" element={<ProtectRoutes Component={HomePage} />}/>
+        <Route path="/userlinks" element={<ProtectRoutes Component={UserLinks} />}/>
         <Route path="/links/:userId" element={<LinkUrl />}/>
       </Routes>
     </BrowserRouter>

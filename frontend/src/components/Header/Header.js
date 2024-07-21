@@ -20,12 +20,12 @@ const Header = ({ onCreateLinkClick }) => {
   return (
     <header className={styles.header}>
       <div onClick={handleHome} className={styles.brand}>UniLink</div>
-      <nav className={styles.nav}>
+      <div className={styles.links}>
         <span onClick={onCreateLinkClick}>Create Link</span>
         <span>
           <a href="/userLinks">Your Links</a>
         </span>
-      </nav>
+      </div>
 
       <button onClick={handleLogout} className={styles.logout}>
         Logout

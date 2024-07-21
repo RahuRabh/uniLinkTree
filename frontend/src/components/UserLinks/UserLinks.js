@@ -8,6 +8,7 @@ import { getLinks, deleteLink } from "../../apis/link";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import LinkForm from "../LinkForm/LinkForm";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,6 +21,11 @@ export default function UserLinks() {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingLink, setEditingLink] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const handleCreateLinkClick = () => {
+    setIsFormVisible(true);
+  };
 
   // To Fetch Link Data
   useEffect(() => {
@@ -58,17 +64,68 @@ export default function UserLinks() {
 
   const handleCloseForm = () => {
     setEditingLink(null);
+    setIsFormVisible(false);
   };
 
-  if (loading) {
-    return <div className={styles.loader}>Loading...</div>; // Simple loading indicator
-  }
-
   return (
-    <>
-      <Header />
-      <div className={styles.contentContainer}>
-        {links.length > 0 ? (
+    //   <div className={styles.container}>
+    //     <Header onCreateLinkClick={handleCreateLinkClick} />
+    //     <div className={styles.contentWrapper}>
+    //     <main className={styles.mainContent}>
+    //       {isFormVisible && <LinkForm onClose={handleCloseForm} />}
+    //       {loading ? (
+    //         <div className={styles.loader}>Loading...</div>
+    //       ) : links.length > 0 ? (
+    //         links.map((linkObj, index) => (
+    //           <div
+    //             key={linkObj._id}
+    //             className={`${styles.linkCard} ${
+    //               index % 2 === 0 ? styles.evenCard : styles.oddCard
+    //             }`}
+    //           >
+    //             {linkObj.links.map((link) => (
+    //               <div key={link._id} className={styles.linkRow}>
+    //                 <span className={styles.linkTitle}>{link.title}</span>
+    //                 <span className={styles.linkUrl}>{link.url}</span>
+    //               </div>
+    //             ))}
+    //             <div className={styles.actionButtons}>
+    //               <img
+    //                 src={edit}
+    //                 alt="Edit"
+    //                 className={styles.editIcon}
+    //                 onClick={() => handleEdit(linkObj)}
+    //               />
+    //               <img
+    //                 src={del}
+    //                 alt="Delete"
+    //                 className={styles.deleteIcon}
+    //                 onClick={() => handleDelete(linkObj._id)}
+    //               />
+    //             </div>
+    //           </div>
+    //         ))
+    //       ) : (
+    //         <div className={styles.noLinksMessage}>No links uploaded yet.</div>
+    //       )}
+    //       {editingLink && (
+    //         <LinkForm link={editingLink} onClose={handleCloseForm} />
+    //       )}
+    //     </main>
+    //     </div>
+    //     <Footer />
+    //     <ToastContainer />
+    //   </div>
+    // );
+    <div className={styles.container}>
+      <Header onCreateLinkClick={handleCreateLinkClick} />
+      <main className={styles.mainContent}>
+        {isFormVisible && (
+          <LinkForm link={editingLink} onClose={handleCloseForm} />
+        )}
+        {loading ? (
+          <div className={styles.loader}>Loading...</div>
+        ) : links.length > 0 ? (
           links.map((linkObj, index) => (
             <div
               key={linkObj._id}
@@ -101,10 +158,9 @@ export default function UserLinks() {
         ) : (
           <div className={styles.noLinksMessage}>No links uploaded yet.</div>
         )}
-      </div>
-      {editingLink && <LinkForm link={editingLink} onClose={handleCloseForm} />}
-      <Footer /> {/* Include Footer */}
+      </main>
+      <Footer />
       <ToastContainer />
-    </>
+    </div>
   );
 }

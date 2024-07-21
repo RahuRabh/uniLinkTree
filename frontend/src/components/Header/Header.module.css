@@ -1,23 +1,29 @@
 /* src/components/Dashboard/Header.module.css */
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #282c34;
+    background-color: #2d3037;
     color: white;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    position: sticky;
     top: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .brand {
     font-size: 1.5rem;
     font-weight: bold;
+    cursor: pointer;
   }
-  
-  .nav a {
+  .links{
+    display: flex;
+    gap: 3vw;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .links a {
     margin: 0 1rem;
     text-decoration: none;
     color: white;

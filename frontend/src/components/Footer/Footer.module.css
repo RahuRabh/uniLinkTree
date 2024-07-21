@@ -1,8 +1,9 @@
-/* src/components/Dashboard/Footer.module.css */
+/* Footer.module.css */
 .footer {
-    background-color: #282c34;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-  }
-  
+  background-color: #282c34;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}

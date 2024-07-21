@@ -3,15 +3,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./LinkForm.module.css";
 
+//component 
+import LinkSuccess from "../LinkSuccess/LinkSuccess"
+
+//assets
 import del from "../../assets/del.png";
 import cross from "../../assets/cross.png";
 
+//api's
 import { createLink, updateLink } from "../../apis/link";
 
 export default function LinkForm({ link, onClose }) {
   const [links, setLinks] = useState([{ title: "", url: "" }]);
   const [popupVisible, setPopupVisible] = useState(false);
-  const [popupLinkUrl, setPopupLinkUrl] = useState("");
 
   // Pre-fill the form with the link data if editing
   useEffect(() => {
@@ -78,15 +82,12 @@ export default function LinkForm({ link, onClose }) {
           });
         } else {
           // If creating, create a new link
-          const response = await createLink(linkData);
-          const urlLink = response.linkUrl;
+          await createLink(linkData);
           toast.success("Links submitted successfully!", {
             className: styles.customToast,
           });
-          setPopupLinkUrl(urlLink);
           setPopupVisible(true);
         }
-        onClose(); // Close the form after successful submission
       } catch (error) {
         toast.error("Failed to submit links.", {
           className: styles.customToast,
@@ -149,22 +150,7 @@ export default function LinkForm({ link, onClose }) {
         </form>
 
         {popupVisible && (
-          <div className={styles.popup}>
-            <div className={styles.popupContent}>
-              <h3>Link Created!</h3>
-              <p>
-                Your link:{" "}
-                <a
-                  href={popupLinkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {popupLinkUrl}
-                </a>
-              </p>
-              <button onClick={() => setPopupVisible(false)}>Close</button>
-            </div>
-          </div>
+          <LinkSuccess onClose={() => {setPopupVisible(false); onClose() }} />
         )}
       </div>
       <ToastContainer />
