@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
+//styles
 import styles from "./Register.module.css";
 
+//register api
 import { registerUser } from "../../../apis/auth";
 
 export default function Register({ setCurrentView }) {
   const methods = useForm();
   const [errorMessage, seterrorMessage] = useState();
+
+  //to check form errors
   const {
     handleSubmit,
     register,
@@ -15,9 +19,11 @@ export default function Register({ setCurrentView }) {
     setError,
     formState: { errors },
   } = methods;
+
   const password = React.useRef({});
   password.current = watch("password", "");
 
+  // to check submit handler
   const onSubmit = async (data) => {
     try {
       const response = await registerUser(data);

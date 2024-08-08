@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+
+//styles
 import styles from "./Auth.module.css";
+
+//components
 import Register from "./Register/Register";
 import Login from "./Login/Login";
-export default function Auth() {
-  const [currentView, setcurrentView] = useState("register");
+
+export default function Auth({onClose}) {
+  const [currentView, setcurrentView] = useState("login");
 
   return (
     <div className={styles.overlay}>
@@ -15,7 +20,7 @@ export default function Auth() {
           <button className={currentView === "login" ? styles.active : ""} onClick={() => setcurrentView("login")}>Log In</button>
         </div>
         {currentView === "register" && <Register setCurrentView={setcurrentView} />}
-        {currentView === "login" && <Login />}
+        {currentView === "login" && <Login onClose={onClose}/>}
       </div>
     </div>
     </div>

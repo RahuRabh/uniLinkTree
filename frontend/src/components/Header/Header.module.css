@@ -1,25 +1,39 @@
-/* src/components/Dashboard/Header.module.css */
 .header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #2d3037;
+    justify-items: center;
+    background-color: #000000;
     color: white;
     top: 0;
     width: 100%;
+    height: 100px;
     box-sizing: border-box;
+    
   }
-  
-  .brand {
-    font-size: 1.5rem;
-    font-weight: bold;
+  .brand{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     cursor: pointer;
+    gap: 10px;
+  }
+  .logo{
+    width: 30px;
+    height: 30px;
+
+  }
+  .title {
+    color: white;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bolder;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   .links{
     display: flex;
-    gap: 3vw;
-    font-size: 1rem;
+    gap: 4vw;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
   }
@@ -29,10 +43,27 @@
     color: white;
   }
   
-  .logout {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    background-color: #2d3037;
-  } 
+  .popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
+  .popupContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+  }
+  .btn{
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+  }

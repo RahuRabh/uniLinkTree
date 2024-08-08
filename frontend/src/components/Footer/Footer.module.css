@@ -1,9 +1,78 @@
-/* Footer.module.css */
 .footer {
-  background-color: #282c34;
-  color: white;
-  padding: 1rem;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #000000;
+  color: #fff;
   width: 100%;
-  box-sizing: border-box;
+  /* height: 200px; */
+}
+
+.branding, .contact, .socialMedia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.branding {
+  align-items: flex-start;
+}
+
+.contact {
+  align-items: center;
+}
+
+.socialMedia {
+  align-items: flex-end;
+}
+
+.socialMedia a {
+  margin: 5px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.copyRight {
+  margin-top: 10px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a img {
+  width: 35px;
+  height: 35px;
+}
+p {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* Responsive design for tablets and mobiles */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+  .branding{
+    margin-top: 10px;
+  }
+
+  .branding, .contact, .socialMedia {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+  }
 }

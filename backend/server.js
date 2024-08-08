@@ -1,17 +1,17 @@
-//loading environment variables
 require("dotenv").config();
 
+//requiring dependencies
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-
 const mongoose = require("mongoose");
 
 //Import routes
 const authRoutes = require("./routes/auth");
 const linkRoutes = require("./routes/link");
-const errorHandler = require("./middleware/authMiddleware");
+const errorHandler = require("./middleware/errorHanlder")
 
+//initiating express
 const app = express();
 
 //Middleware
@@ -25,12 +25,13 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-//Use routes
+// routes
 app.use("/api/auth", authRoutes);
 app.use("/api/links", linkRoutes);
-app.use("/", (req, res) => {
+app.use("/*", (req, res) => {
   res.status(404).json({ errorMessage: "Route not found" });
 });
+app.use("/", errorHandler);
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;

@@ -1,7 +1,7 @@
-/* src/components/Dashboard/Dashboard.module.css */
 .container {
     display: flex;
     flex-direction: column;
+    width: 100vw;
     min-height: 100vh;
     background-color: #f0f0f0;
   }
@@ -67,3 +67,35 @@
     box-shadow: 10px 10px 5px 5px rgba(31, 9, 14, 0.665);
   }
   
+
+   /* Home.module.css */
+/* .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.monologueSection, .guidanceSection, .additionalInfoSection {
+  margin-bottom: 20px;
+}
+
+.guidanceSection, .additionalInfoSection {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.imageSection img {
+  width: 100%;
+  height: auto;
+}
+
+.createLinkBtn, .unilinkBtn {
+  margin-top: 10px;
+} */

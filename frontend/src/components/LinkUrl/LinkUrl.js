@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { getLinks } from "../../apis/link";
-import styles from "./LinkUrl.module.css";
 import { useParams } from "react-router-dom";
+
+//get link api get's all the link related to the user.
+import { getUserLinks } from "../../apis/link";
+
+//styles
+import styles from "./LinkUrl.module.css";
+
 const LinkUrl = () => {
-  const [links, setLinks] = useState([]);
-  const { userId } = useParams(); // Extract userId from URL
+  const [data, setData] = useState({ userName: "", links: [] });
+  const { userId } = useParams(); // Extracts userId from URL
+
+  //Fetches url data from backend
   useEffect(() => {
     const fetchLinks = async () => {
       try {
         if (!userId) {
           throw new Error("User ID not found in URL");
         }
-        const response = await getLinks(userId);
-        setLinks(response);
+        const response = await getUserLinks(userId);
+        setData(response);
       } catch (error) {
         console.error("Error fetching links", error);
       }
@@ -23,12 +30,12 @@ const LinkUrl = () => {
 
   return (
     <div>
-      <h1 className={styles.brandname}>UniLink</h1>
-      <p className={styles.para}>All your link in one place.</p>
       <div className={styles.linkcontainer}>
-        {links.length > 0 ? (
-          links.map((linkGroup) => (
-            <div key={linkGroup._id} className={styles.linkgroup}>
+        <h1 className={styles.userName}>Hi, I am {data.userName}</h1>
+        <p className={styles.intro}>Welcome to my Uni-Link. </p>
+        {data.links.length > 0 ? (
+          data.links.map((linkGroup) => (
+            <div key={linkGroup.id} className={styles.linkgroup}>
               {linkGroup.links.map((link) => (
                 <div key={link._id} className={styles.linkitem}>
                   <a
