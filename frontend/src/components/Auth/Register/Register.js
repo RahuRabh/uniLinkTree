@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
+//component
+import Loader from '../../Loader/Loader'
+
 //styles
 import styles from "./Register.module.css";
 
@@ -10,13 +13,13 @@ import { registerUser } from "../../../apis/auth";
 export default function Register({ setCurrentView }) {
   const methods = useForm();
   const [errorMessage, seterrorMessage] = useState();
+  const [loading, setLoading] = useState(false);
 
   //to check form errors
   const {
     handleSubmit,
     register,
     watch,
-    setError,
     formState: { errors },
   } = methods;
 
@@ -26,16 +29,25 @@ export default function Register({ setCurrentView }) {
   // to check submit handler
   const onSubmit = async (data) => {
     try {
+      setLoading(true)
       const response = await registerUser(data);
       if (response.errorMessage) {
         seterrorMessage(response.errorMessage);
       } else {
+        setLoading(false);
         setCurrentView("login");
       }
     } catch (error) {
       console.log("Error:", error.message);
+      seterrorMessage("An unexpected error occurred.");
+      setLoading(false);
     }
   };
+
+  // Render loader component if loading is true
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.registerContainer}>

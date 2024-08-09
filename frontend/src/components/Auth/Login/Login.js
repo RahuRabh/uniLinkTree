@@ -7,14 +7,15 @@ import styles from "./Login.module.css";
 //components
 import { loginUser } from "../../../apis/auth";
 import { useNavigate } from "react-router-dom";
-
+import Loader from '../../Loader/Loader'
 
 export default function Login({onClose}) {
   const navigate = useNavigate();
   const methods = useForm();
   const [errorMessage, setErrorMessage] = useState();
+  const [loading, setLoading] = useState(false);
 
-  //to check errors
+  // Destructure methods for easier access
   const {
     handleSubmit,
     register,
@@ -24,6 +25,7 @@ export default function Login({onClose}) {
   //to check submit functionality
   const onSubmit = async (data) => {
     try {
+      setLoading(true)
       const response = await loginUser(data);
       if (response.errorMessage) {
         setErrorMessage(response.errorMessage);
@@ -32,13 +34,21 @@ export default function Login({onClose}) {
         localStorage.setItem("userId", response.userId);
         localStorage.setItem("name", response.name);
         localStorage.setItem("userLink", response.linkUrl);
+        setLoading(false);
         navigate("/");
         onClose();
       }
     } catch (error) {
       console.error("Error:", error.message);
+      setErrorMessage("An unexpected error occurred.");
+      setLoading(false);
     }
   };
+
+  // Render loader component if loading is true
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
         <div className={styles.loginContainer}>
