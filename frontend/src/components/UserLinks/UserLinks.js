@@ -7,6 +7,7 @@ import { getLinks, deleteLink } from "../../apis/link";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import LinkForm from "../LinkForm/LinkForm";
+import Loader from "../Loader/Loader"
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -77,7 +78,7 @@ export default function UserLinks() {
           <LinkForm link={editingLink} onClose={handleCloseForm} />
         )}
         {loading ? (
-          <div className={styles.loader}>Loading...</div>
+          <Loader />
         ) : links.length > 0 ? (
           links.map((linkObj, index) => (
             <div

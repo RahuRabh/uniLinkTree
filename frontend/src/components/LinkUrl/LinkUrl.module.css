@@ -1,75 +1,86 @@
+/* Keyframes for sliding effect */
+@keyframes slide-in-left {
+  0% {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  100% {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-image: url("https://images.pexels.com/photos/10643964/pexels-photo-10643964.jpeg?auto=compress&cs=tinysrgb&w=1200");
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .linkcontainer {
-    text-align: center;
-    background: linear-gradient(135deg, #f3b1b6, #7c75f2);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 50vw;
-    max-width: 600px;
-  }
-  
-  .linktitle {
-    font-size: 2em;
-    color: #83de42;
-    margin-bottom: 20px;
-  }
-  
-  .userName {
-    font-size: 2.5em;
-    color: #ffffff;
-    margin-bottom: 40px;
-    font-weight:bolder;
-  }
-  .intro{
-    font-size: 24px;
-    font-weight: 800;
-    color: white;
-  }
-  .linkgroup {
-    margin-bottom: 10px;
-  }
-  
+.main {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url("https://images.unsplash.com/photo-1497294815431-9365093b7331?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .linkitem {
-    perspective: 1500px; /* Add perspective to create the 3D effect */
-  }
-  
-  .linkurl {
-    display: inline-block;
-    padding: 10px;
-    background-color: #f06868;
-    border-right:  5px solid #fff;
-    border-bottom: 5px solid #fff;
-    border-radius: 10px;
-    box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform-style: preserve-3d;
-    width: 20vw;
-  }
-  
-  .linkurl:hover {
-    transform: scale(1) translateY(-5px) rotateX(10deg); /* Scale and rotate on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-  }
-  
-  .linkurl h3 {
-    margin: 0;
-    transition: transform 0.3s ease;
-  }
-  
-  .linkurl:hover h3 {
-    transform: translateZ(20px); /* Bring the text closer to the viewer */
-  }
-  
+.linkcontainer {
+  overflow: hidden; 
+  text-align: center;
+  background: linear-gradient(135deg, #f4aab0, #8781f5);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(41, 34, 175, 0.2);
+  width: 50vw;
+  max-width: 600px;
+}
+
+.userName {
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 40px;
+  font-weight: bolder;
+  animation: slide-in-left 1s ease-out forwards;
+}
+.intro {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  animation: slide-in-left 1s ease-out forwards;
+}
+.linkgroup {
+  margin-bottom: 10px;
+}
+
+.linkitem {
+  perspective: 1500px; /* Add perspective to create the 3D effect */
+}
+
+.linkurl {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f99099;
+  border-right: 5px solid white;
+  border-bottom: 5px solid white;
+  border-radius: 10px;
+  box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  width: 20vw;
+  text-decoration: none;
+  color: #ea3645;
+  font-size: larger;
+}
+
+.linkurl:hover {
+  transform: scale(1) translateY(-5px) rotateX(10deg); /* Scale and rotate on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+.linkurl h3 {
+  margin: 0;
+  transition: transform 0.3s ease;
+}
+
+.linkurl:hover h3 {
+  transform: translateZ(20px); /* Bring the text closer to the viewer */
+}
