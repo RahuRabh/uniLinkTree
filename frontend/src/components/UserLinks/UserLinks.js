@@ -7,7 +7,7 @@ import { getLinks, deleteLink } from "../../apis/link";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import LinkForm from "../LinkForm/LinkForm";
-import Loader from "../Loader/Loader"
+import Loader from "../Loader/Loader";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,7 +46,7 @@ export default function UserLinks() {
   //Function to edit
   const handleEdit = (link) => {
     setEditingLink(link);
-    setIsFormVisible(true); 
+    setIsFormVisible(true);
   };
 
   //Function to delete
@@ -55,12 +55,22 @@ export default function UserLinks() {
       await deleteLink(linkId);
       setLinks((prevLinks) => prevLinks.filter((link) => link._id !== linkId));
       toast.success("Link deleted successfully!", {
-        className: styles.customToast,
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       });
     } catch (error) {
       console.log("Error deleting link:", error);
       toast.error("Error deleting link. Please try again.", {
-        className: styles.customToast,
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       });
     }
   };

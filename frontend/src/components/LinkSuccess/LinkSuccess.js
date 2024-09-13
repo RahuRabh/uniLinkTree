@@ -17,7 +17,6 @@ export default function LinkSuccess({ onClose }) {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
         });
       })
       .catch((err) => {
@@ -29,7 +28,6 @@ export default function LinkSuccess({ onClose }) {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
         });
       });
   };

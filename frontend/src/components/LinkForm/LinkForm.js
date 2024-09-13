@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 //styles
 import styles from "./LinkForm.module.css";
 
-//component 
-import LinkSuccess from "../LinkSuccess/LinkSuccess"
+//component
+import LinkSuccess from "../LinkSuccess/LinkSuccess";
 
 //assets
 import del from "../../assets/del.png";
@@ -32,13 +32,23 @@ export default function LinkForm({ link, onClose }) {
     links.forEach((link, index) => {
       if (!link.title.trim()) {
         toast.error(`Title for link ${index + 1} is required.`, {
-          className: styles.customToast,
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
         isValid = false;
       }
       if (!link.url.trim()) {
         toast.error(`URL for link ${index + 1} is required.`, {
-          className: styles.customToast,
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
         isValid = false;
       }
@@ -80,19 +90,34 @@ export default function LinkForm({ link, onClose }) {
           // If editing, update the link
           await updateLink(link._id, linkData);
           toast.success("Links updated successfully!", {
-            className: styles.customToast,
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
           });
         } else {
           // If creating, create a new link
           await createLink(linkData);
           toast.success("Links submitted successfully!", {
-            className: styles.customToast,
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
           });
           setPopupVisible(true);
         }
       } catch (error) {
         toast.error("Failed to submit links.", {
-          className: styles.customToast,
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
       }
     }
@@ -152,7 +177,12 @@ export default function LinkForm({ link, onClose }) {
         </form>
 
         {popupVisible && (
-          <LinkSuccess onClose={() => {setPopupVisible(false); onClose() }} />
+          <LinkSuccess
+            onClose={() => {
+              setPopupVisible(false);
+              onClose();
+            }}
+          />
         )}
       </div>
       <ToastContainer />

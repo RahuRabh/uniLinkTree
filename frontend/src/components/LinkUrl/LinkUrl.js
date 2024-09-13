@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //loader component
 import Loader from '../Loader/Loader'
@@ -33,10 +35,25 @@ const LinkUrl = () => {
     }
   }, [userId]);
 
+  const handleShare = () => {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      toast.success('UniLink URL copied to clipboard!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    });
+  };
+
   if(loading){return<div><Loader /></div>}
 
   return (
     <div className={styles.main}>
+    <span><a className={styles.uniLink} href="https://uni-link-tree.vercel.app/" >Check out UniLink</a></span>
       <div className={styles.linkcontainer}>
         <h1 className={styles.userName}>Hi, I am {data.userName}</h1>
         <p className={styles.intro}>Welcome to my Uni-Link. </p>
@@ -61,6 +78,10 @@ const LinkUrl = () => {
           <p>No links available.</p>
         )}
       </div>
+      <button onClick={handleShare} className={styles.shareButton}>
+        Share your UniLink
+      </button>
+      <ToastContainer />
     </div>
   );
 };

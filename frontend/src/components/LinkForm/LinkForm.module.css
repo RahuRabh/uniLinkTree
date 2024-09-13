@@ -48,7 +48,7 @@
 .deleteBtn {
   cursor: pointer;
 }
-.button{
+.button {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -58,7 +58,8 @@
   position: absolute;
   top: 100px;
 }
-.addBtn, .submitBtn{
+.addBtn,
+.submitBtn {
   background-color: #f88c83;
   border: none;
   border-radius: 5px;
@@ -67,7 +68,8 @@
   width: 100px;
 }
 
-.addBtn:hover, .submitBtn:hover {
+.addBtn:hover,
+.submitBtn:hover {
   background-color: #ff6f61;
 }
 
