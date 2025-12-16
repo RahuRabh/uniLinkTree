@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 //styles
 import styles from "./Header.module.css";
@@ -57,7 +56,7 @@ const Header = ({ onCreateLinkClick }) => {
       <header className={styles.header}>
         <div className={styles.brand} onClick={handlehome}>
             <img src={link} className={styles.logo} alt="logo" />
-            <h1 className={styles.title}>UniLink</h1>
+            <h1 className={styles.title}>UniLink Plus</h1>
         </div>
 
         <div className={styles.links}>
