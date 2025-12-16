@@ -12,6 +12,11 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
     defaults:
       run:
         working-directory: backend
@@ -22,7 +27,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('backend/package-lock.json')}}
 
       - name: Install dependencies
         run: npm install
@@ -32,17 +43,28 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18] 
+
     defaults:
       run:
-        working-directory: frontend
+        working-directory: frontend 
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json')}}    
 
       - name: Install dependencies
         run: npm install
