@@ -5,12 +5,9 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
-    environment:
-      REACT_APP_BACKEND_URL: http://backend:8000
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "3000:80"
+    env_file:
+      - .env
     develop:
       watch:
         - action: rebuild
@@ -26,12 +23,8 @@ services:
       context: ./backend
     ports:
       - "8000:8000"
-    environment:
-      MONGO_URI: mongodb+srv://rahurabh:uniLink0000@cluster0.b6a6ml8.mongodb.net/
-      SECRET_KEY: UniLink@Project
-    volumes:
-      - ./backend:/app
-      - /app/node_modules  
+    env_file:
+      - .env 
     develop:
       watch:
         - action: rebuild

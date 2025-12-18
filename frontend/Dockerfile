@@ -1,7 +1,8 @@
-FROM node:18-alpine 
+# Build stage
+FROM node:18-alpine AS builder 
 
 # Security best practice: create a non-root user 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 WORKDIR /app
 
@@ -15,11 +16,19 @@ COPY . .
 # Build for production
 RUN npm run build
 
-# Expose your app port
-EXPOSE 3000
+# Production stage
+FROM nginx:alpine
 
-# Switch to non-root user
-USER appuser
+COPY --from=builder /app/build /usr/share/nginx/html
 
-# Start the app
-CMD ["npm", "start"]
+EXPOSE 80
+
+CMD [ "nginx", "-g", "daemon off;" ]
+# # Expose your app port
+# EXPOSE 3000
+
+# # Switch to non-root user
+# USER appuser
+
+# # Start the app
+# CMD ["npm", "start"]
