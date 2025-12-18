@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  frontend:
+    image: ralkum/unilink-frontend:latest
+    ports:
+      - "80:80"
+
+  backend:
+    image: ralkum/unilink-backend:latest
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env  
