@@ -8,7 +8,7 @@ const User = require("../models/user");
 const registerUser = async (req, res) => {
   try {
     //receiving data from frontend ui
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, password } = req.body;
     
     //to check if user already exits
     const isExistingUser = await User.findOne({ email: email });
@@ -17,11 +17,11 @@ const registerUser = async (req, res) => {
         errorMessage: "Email already exists",
       });
     }
-    if (password !== confirmPassword) {
-      return res.json({
-        errorMessage: "Passwords do not match",
-      });
-    }
+    // if (password !== confirmPassword) {
+    //   return res.json({
+    //     errorMessage: "Passwords do not match",
+    //   });
+    // }
 
     //hashing password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -29,7 +29,7 @@ const registerUser = async (req, res) => {
       name: name,
       email: email,
       password: hashedPassword,
-      confirmPassword: hashedPassword,
+      // confirmPassword: hashedPassword,
     });
     await userData.save();
     res.json({ message: "Registered" });
@@ -42,7 +42,7 @@ const registerUser = async (req, res) => {
 // Logic for handling login
 const loginUser = async (req, res) => {
   try {
-
+    
     //receiving data from frontend ui
     const { email, password } = req.body;
 
@@ -58,7 +58,7 @@ const loginUser = async (req, res) => {
 
     //sending user personalized sharable link
     const linkUrl = `https://uni-link-tree.vercel.app/links/${userDetails._id}`;
-    // const linkUrl = `http://localhost:3001/links/${userDetails._id}`
+    // const linkUrl = `http://localhost:8000/links/${userDetails._id}`
 
     const token = jwt.sign({ userId: userDetails._id }, process.env.SECRET_KEY);
     res.cookie("token", token, { httpOnly: true });
