@@ -16,7 +16,7 @@ const LinkUrl = () => {
   const [data, setData] = useState({ userName: "", links: [] });
   const { userId } = useParams(); // Extracts userId from URL
   const [loading, setloading] = useState(true);
-
+  
   //Fetches url data from backend
   useEffect(() => {
     const fetchLinks = async () => {

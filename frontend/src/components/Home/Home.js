@@ -15,7 +15,7 @@ const Home = () => {
 
   //to check if user is logged in or not
   const isLoggedIn = !!localStorage.getItem("token");
-
+  const userId = localStorage.getItem("userId");
   //create link form
   const handleCreateLinkClick = () => {
     if (isLoggedIn) {
@@ -36,8 +36,7 @@ const Home = () => {
   //get's user their sharable link
   const handleLinkClick = () => {
     if (isLoggedIn) {
-      const linkUrl = localStorage.getItem("userLink");
-      window.open(linkUrl, "_blank");
+      window.open(`/links/${userId}`, "_blank", "noreferrer");
     } else {
       setAuthPopupOpen(true);
     }
