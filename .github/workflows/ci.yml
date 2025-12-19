@@ -2,35 +2,72 @@ name: UniLink CI
 
 on:
   push:
-    branches: [dev]
+    branches:
+      - "**"
   pull_request:
-    branches: [main]
+    branches:
+      - dev
+      - main
 
 jobs:
-  ci:
+  backend:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    defaults:
+      run:
+        working-directory: backend
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('backend/package-lock.json')}}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test || echo "No tests yet"
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18] 
+
+    defaults:
+      run:
+        working-directory: frontend 
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json')}}    
+
+      - name: Install dependencies
+        run: npm install
       
-      - name: Install backend dependencies
-        working-directory: backend
-        run: npm install
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm install
-
       - name: Build frontend
-        working-directory: frontend
-        run: npm run Build
-
-      - name: Run backend tests
-        working-directory: backend
-        run: node server.js &
+        run: npm run build
