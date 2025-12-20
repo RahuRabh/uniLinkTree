@@ -19,9 +19,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 // routes
-// app.use("/", (req, res) => {
-//   res.send("App is running...");
-// })
+app.use("/", (req, res) => {
+  res.send("App is running...");
+})
 
 app.use("/api/auth", authRoutes);
 app.use("/api/links", linkRoutes);
