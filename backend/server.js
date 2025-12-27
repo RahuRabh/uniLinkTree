@@ -14,17 +14,19 @@ connectDB();
 const app = express();
 
 //Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
 
-// routes
-app.use("/", (req, res) => {
-  res.send("App is running...");
-})
-
 app.use("/api/auth", authRoutes);
 app.use("/api/links", linkRoutes);
+
+app.get("/", (req, res) => {
+  res.send("App is running...");
+})
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 8000;

@@ -1,4 +1,6 @@
+import toast from "react-hot-toast";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 //styles
 import styles from "./Home.module.css";
@@ -9,20 +11,29 @@ import Footer from "../Footer/Footer";
 import LinkForm from "../LinkForm/LinkForm";
 import Auth from "../Auth/Auth";
 
+// utils
+import { useAuth } from "../../utils/AuthProvider";
+import { logOutUser } from "../../apis/auth";
+
 const Home = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useAuth();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isAuthPopupOpen, setAuthPopupOpen] = useState(false);
 
-  //to check if user is logged in or not
-  const isLoggedIn = !!localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
-  //create link form
-  const handleCreateLinkClick = () => {
-    if (isLoggedIn) {
-      setIsFormVisible(true);
-    } else {
-      setAuthPopupOpen(true);
-    }
+  const requestAuthAction = (action) => {
+    if (user) action();
+    else setAuthPopupOpen(true);
+  };
+
+  const handleCreateLink = () => {
+    requestAuthAction(() => setIsFormVisible(true));
+  };
+
+  const handleUserLink = () => {
+    requestAuthAction(() => {
+      navigate("/userlinks");
+    });
   };
 
   const closePopup = () => {
@@ -33,24 +44,41 @@ const Home = () => {
     setIsFormVisible(false);
   };
 
-  //get's user their sharable link
   const handleLinkClick = () => {
-    if (isLoggedIn) {
+    const userId = user?.userId || null;
+    if (userId) {
       window.open(`/links/${userId}`, "_blank", "noreferrer");
     } else {
       setAuthPopupOpen(true);
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      const res = await logOutUser();
+      toast.success(res.message);
+      navigate("/");
+      setUser(null);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Logout failed");
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <Header onCreateLinkClick={handleCreateLinkClick} />
+      <Header
+        onCreateLink={handleCreateLink}
+        onUserLink={handleUserLink}
+        onLogin={() => setAuthPopupOpen(true)}
+        onLogout={handleLogout}
+      />
       {isFormVisible && <LinkForm onClose={handleCloseForm} />}
       <main className={styles.mainContent}>
         <section className={styles.monologueSection}>
           <h2>All Your Links in One Page</h2>
           <p>
-            Join the community of creators to streamline your online presence. 
+            ¯ Join the community of creators to streamline your online presence.
           </p>
           <p>
             {" "}
@@ -62,10 +90,7 @@ const Home = () => {
             Simplify your online identity and maximize your reach with UniLink.
           </p>
 
-          <button
-            onClick={handleCreateLinkClick}
-            className={styles.createLinkBtn}
-          >
+          <button onClick={handleCreateLink} className={styles.createLinkBtn}>
             Create Link
           </button>
           <button onClick={handleLinkClick} className={styles.unilinkBtn}>

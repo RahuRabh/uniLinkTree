@@ -13,7 +13,6 @@ const createLink = async (req, res) => {
   try {
     const { links, userId } = req.body;
 
-    // Ensure links and userId are present
     if (!links || !userId) {
       return res.status(400).json({ message: "Links and userId are required" });
     }
@@ -24,16 +23,18 @@ const createLink = async (req, res) => {
     });
 
     //  sending sharable public URL
-    const linkUrl = `https://uni-link-tree.vercel.app/links/${userId}`;
-    // const linkUrl = `http://localhost:3001/links/${userId}`;
+    // const linkUrl = `https://uni-link-tree.vercel.app/links/${userId}`;
+    const linkUrl = `http://localhost:3000/links/${userId}`;
+
     const response = await linkDetails.save();
-    res.json({
+    res.status(201).json({
       message: "Link Created",
       id: response._id,
       linkUrl,
     });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -54,12 +55,13 @@ const updateLink = async (req, res) => {
     // Save the updated document
     const updatedLinkDocument = await linkDocument.save();
 
-    res.json({
+    res.status(201).json({
       message: "Link Updated",
       id: updatedLinkDocument._id,
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -67,9 +69,10 @@ const deleteLink = async (req, res) => {
   try {
     const { linkId } = req.params;
     const link = await Link.findByIdAndDelete(linkId);
-    res.json({ message: "Link Deleted" });
+    res.status(200).json({ message: "Link Deleted" });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -78,36 +81,35 @@ const getUserLinks = async (req, res) => {
   try {
     const { userId } = req.params;
 
-     // Fetch user information
-     const user = await User.findById(userId);
-     if (!user) {
-       return res.status(404).json({ message: 'User not found' });
-     }
-     // Fetch links for the user
-    const links = await Link.find(req.params);
+    // Fetch user information
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // Fetch links for the user
+    const links = await Link.find({ userId });
 
-    res.json({
+    res.status(200).json({
       userName: user.name,
-      links: links.map(link => ({
+      links: links.map((link) => ({
         id: link._id,
-        links: link.links
+        links: link.links,
       })),
     });
-    
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
 const getLink = async (req, res) => {
   try {
-
-     // Fetch links for the user
+    // Fetch links for the user
     const links = await Link.find(req.params);
-    res.json(links);
-    
+    res.status(200).json(links);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -116,5 +118,5 @@ module.exports = {
   createLink,
   updateLink,
   deleteLink,
-  getUserLinks
+  getUserLinks,
 };
