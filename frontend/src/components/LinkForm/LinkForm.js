@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
+import toast from "react-hot-toast";
 //styles
 import styles from "./LinkForm.module.css";
 
@@ -14,54 +13,38 @@ import cross from "../../assets/cross.png";
 
 //api's
 import { createLink, updateLink } from "../../apis/link";
+import { useAuth } from "../../utils/AuthProvider";
 
 export default function LinkForm({ link, onClose }) {
   const [links, setLinks] = useState([{ title: "", url: "" }]);
   const [popupVisible, setPopupVisible] = useState(false);
+  const { user, setUser, loader } = useAuth();
 
-  // Pre-fill the form with the link data if editing
   useEffect(() => {
     if (link) {
       setLinks(link.links);
     }
   }, [link]);
 
-  //Function to validate
   const validate = () => {
     let isValid = true;
     links.forEach((link, index) => {
       if (!link.title.trim()) {
-        toast.error(`Title for link ${index + 1} is required.`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.error(`Title for link ${index + 1} is required.`);
         isValid = false;
       }
       if (!link.url.trim()) {
-        toast.error(`URL for link ${index + 1} is required.`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.error(`URL for link ${index + 1} is required.`);
         isValid = false;
       }
     });
     return isValid;
   };
 
-  //Function to add Link
   const handleAddLink = () => {
     setLinks([...links, { title: "", url: "" }]);
   };
 
-  //Function to remove Link
   const handleRemoveLink = (index) => {
     const newLinks = links.filter((_, i) => i !== index);
     setLinks(newLinks);
@@ -76,11 +59,11 @@ export default function LinkForm({ link, onClose }) {
     });
   };
 
-  //Function to submit the form
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validate()) {
-      const userId = localStorage.getItem("userId");
+      const userId = user?.userId;
+
       const linkData = {
         links,
         userId,
@@ -89,36 +72,14 @@ export default function LinkForm({ link, onClose }) {
         if (link) {
           // If editing, update the link
           await updateLink(link._id, linkData);
-          toast.success("Links updated successfully!", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+          toast.success("Links updated successfully!");
         } else {
-          // If creating, create a new link
-          await createLink(linkData);
-          toast.success("Links submitted successfully!", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+          const response = await createLink(linkData);
+          toast.success("Links created successfully!");
           setPopupVisible(true);
         }
       } catch (error) {
-        toast.error("Failed to submit links.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.error("Failed to submit links.");
       }
     }
   };
@@ -185,7 +146,6 @@ export default function LinkForm({ link, onClose }) {
           />
         )}
       </div>
-      <ToastContainer />
     </div>
   );
 }

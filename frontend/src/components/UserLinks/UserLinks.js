@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import toast from "react-hot-toast";
 //api's
 import { getLinks, deleteLink } from "../../apis/link";
 
@@ -9,19 +9,20 @@ import Footer from "../Footer/Footer";
 import LinkForm from "../LinkForm/LinkForm";
 import Loader from "../Loader/Loader";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 //styles and assets
 import styles from "./UserLinks.module.css";
 import edit from "../../assets/edit.png";
 import del from "../../assets/del.png";
+import { useAuth } from "../../utils/AuthProvider";
 
 export default function UserLinks() {
+  const { user } = useAuth();
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingLink, setEditingLink] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  
+  let userId = user?.userId;
 
   const handleCreateLinkClick = () => {
     setIsFormVisible(true);
@@ -30,18 +31,21 @@ export default function UserLinks() {
 
   // To Fetch Link Data
   useEffect(() => {
+
+    if (!userId) return;
+
     const fetchLinks = async () => {
       try {
-        let userId = localStorage.getItem("userId");
         const data = await getLinks(userId);
         setLinks(data);
-        setLoading(false);
       } catch (error) {
-        console.log(console.error());
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchLinks();
-  }, []);
+  }, [userId]);
 
   //Function to edit
   const handleEdit = (link) => {
@@ -54,24 +58,10 @@ export default function UserLinks() {
     try {
       await deleteLink(linkId);
       setLinks((prevLinks) => prevLinks.filter((link) => link._id !== linkId));
-      toast.success("Link deleted successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.success("Link deleted successfully!");
     } catch (error) {
-      console.log("Error deleting link:", error);
-      toast.error("Error deleting link. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      const errorMessage = error.response?.data?.message || "Error deleting link.";
+      toast.error(errorMessage);
     }
   };
 
@@ -124,7 +114,6 @@ export default function UserLinks() {
         )}
       </main>
       <Footer />
-      <ToastContainer />
     </div>
   );
 }

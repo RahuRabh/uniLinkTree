@@ -1,35 +1,21 @@
-import React from "react";
-import styles from "./LinkSuccess.module.css";
+import toast from "react-hot-toast";
+
+// Assets
 import cross from "../../assets/cross.png";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+// Styles
+import styles from "./LinkSuccess.module.css";
+
+// Utils
+import { useAuth } from "../../utils/AuthProvider";
 
 export default function LinkSuccess({ onClose }) {
-  const linkUrl = localStorage.getItem("uniLink");
+  const { user } = useAuth();
+  const linkUrl = user?.linkUrl;
+
   const handleShareClick = () => {
-    navigator.clipboard
-      .writeText(linkUrl)
-      .then(() => {
-        toast.success("Link copied to clipboard", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      })
-      .catch((err) => {
-        console.error("Failed to copy link:", err);
-        toast.error("Failed to copy link", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      });
+    navigator.clipboard.writeText(linkUrl || "");
+    toast.success("Link copied to clipboard");
   };
 
   return (

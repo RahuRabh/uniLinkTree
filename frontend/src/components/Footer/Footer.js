@@ -24,11 +24,11 @@ const Footer = () => {
         <p>
           Connect with me <br />
           <a href="mailto:rahurabh@gmail.com">Email</a>
-        <p>Open to work </p>
+        <span>Open to work </span>
         </p>
       </div>
       <div className={styles.socialMedia}>
-        <p>Connect</p>
+        <span>Connect</span>
         <a href="https://github.com/RahuRabh" target="_blank" rel="noopener noreferrer">
           <img src={github} alt="GitHub" />
         </a>
