@@ -3,9 +3,11 @@ name: UniLink CI/CD
 on:
   push:
     branches: [main]
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         service: [backend, frontend]
@@ -24,50 +26,50 @@ jobs:
       - run: npm install
       - run: npm test || echo "No tests yet"
 
-    build-and-push:
-      needs: test
-      runs-on: ubuntu-latest
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Login to Docker Hub
-          uses: docker/login-action@v3
-          with:
-            username: ${{ secrets.DOCKERHUB_USERNAME }}
-            password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-        - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-        - name: Build & Push Backend
-          uses: docker/build-push-action@v3
-          with:
-            context: ./backend
-            push: true
-            platforms: linux/amd64, linux/arm64
-            tags: ralkum/uniLink-backend:latest
+      - name: Build & Push Backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ralkum/unilink-backend:latest
 
-        - name: Build & Push Frontend
-          uses: docker/build-push-action@v5
-          with:
-            context: ./frontend
-            push: true
-            platforms: linux/amd64, linux/arm64
-            tags: ralkum/uniLink-frontend:latest
+      - name: Build & Push Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ralkum/unilink-frontend:latest
 
-      deploy:
-        needs: build-and-push
-        runs-on: ubuntu-latest
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: Deploy to EC2
-            uses: appleboy/ssh-action@v1.0.3
-            with:
-              host: ${{ secrets.EC2_HOST }}
-              username: ${{ secrets.EC2_USER }}
-              key: ${{ secrets.EC2_SSH_KEY }}
-              script: |
-                cd ~/uniLink
-                docker compose pull
-                docker compose up -d
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/unilink
+            docker compose pull
+            docker compose up -d
