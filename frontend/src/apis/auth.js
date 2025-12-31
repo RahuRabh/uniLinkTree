@@ -9,8 +9,8 @@ export const registerUser = async ({
   confirmPassword,
 }) => {
   try {
-    const reqUrl = `${backendUrl}/api/auth/register`;
-    // const reqUrl = `/api/auth/register`;
+    // const reqUrl = `${backendUrl}/api/auth/register`;
+    const reqUrl = `/api/auth/register`;
     const response = await axios.post(reqUrl, {
       name,
       email,
@@ -25,8 +25,8 @@ export const registerUser = async ({
 
 export const loginUser = async ({ email, password }) => {
   try {
-    const reqUrl = `${backendUrl}/api/auth/login`;
-    // const reqUrl = `/api/auth/login`;
+    // const reqUrl = `${backendUrl}/api/auth/login`;
+    const reqUrl = `/api/auth/login`;
     const response = await axios.post(reqUrl, { email, password });
     return response.data;
   } catch (error) {
@@ -36,10 +36,11 @@ export const loginUser = async ({ email, password }) => {
 
 export const logOutUser = async () => {
   try {
-    const reqUrl = `${backendUrl}/api/auth/logout`;
+    // const reqUrl = `${backendUrl}/api/auth/logout`;
+    const reqUrl = `/api/auth/logout`;
     const response = await axios.post(reqUrl);
     return response.data;
   } catch (error) {
     throw error;
   }
-}
+};
